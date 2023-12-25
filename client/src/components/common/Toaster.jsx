@@ -9,6 +9,11 @@ export const notifyEdit = () => toast.error("Cannot edit this field");
 export const notifyPaymentSuccess = () => toast.success("Payment successful!");
 export const notifyPaymentFail = () => toast.error(`Payment failed`);
 
+export const notifyDelete = () => toast.success("Row deleted successfully!");
+export const notifyRowEdit = () => toast.success("Row edited successfully!");
+export const notifyDeleteMultiple = (val) =>
+    toast.success(`${val} rows deleted successfully!`);
+
 const Toaster = () => {
     return (
         <ToastContainer

@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import Receipt from './components/pages/Receipt';
 import { MobileProvider } from './components/context/MobileContext';
 import Toaster from './components/common/Toaster';
+import DataGrid from './components/DataGrid';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/mobile" element={<LoginPage />} />
           <Route path="/payment" element={<RegisterPage />} />
           <Route path="/receipt" element={<Receipt />} />
+          <Route path="/admin" element={<DataGrid />} />
         </Routes>
       </MobileProvider>
     </BrowserRouter>
