@@ -6,8 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 export const notifyHello = () => toast.info("Hello, register to join");
 export const notifyUser = () => toast.info("Welcome back to Mindful");
 export const notifyEdit = () => toast.error("Cannot edit this field");
-export const notifyPaymentSuccess = () => toast.success("Payment successful!");
-export const notifyPaymentFail = () => toast.error(`Payment failed`);
+export const notifyAge = () => toast.error('Age must be between 18 to 65')
+export const notifyRegistrationSuccess = () => toast.success("Registration successful!");
+export const notifyRegistrationFail = () => toast.error(`Registration failed`);
 
 export const notifyDelete = () => toast.success("Row deleted successfully!");
 export const notifyRowEdit = () => toast.success("Row edited successfully!");

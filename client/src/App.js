@@ -15,8 +15,8 @@ const App = () => {
         <Toaster />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/mobile" element={<LoginPage />} />
-          <Route path="/payment" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/receipt" element={<Receipt />} />
           <Route path="/admin" element={<DataGrid />} />
         </Routes>

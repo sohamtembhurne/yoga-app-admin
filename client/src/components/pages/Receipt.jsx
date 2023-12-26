@@ -42,11 +42,11 @@ const Receipt = () => {
                         />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold mb-4">Payment Receipt</h2>
+                        <h2 className="text-2xl font-bold mb-4">Registration Receipt</h2>
 
                         {Object.keys(receiptDetails).length > 0 ? (
                             <>
-                                <p className="mb-4">Thank you for your payment!</p>
+                                <p className="mb-4">Thank you for registering with us!</p>
 
                                 {/* Display receipt details */}
                                 <div className="mb-2">
@@ -68,7 +68,7 @@ const Receipt = () => {
                                     <strong>Shift:</strong> {receiptDetails.shift}
                                 </div>
                                 <div className="mb-2">
-                                    <strong>Payment Date:</strong> {new Date(receiptDetails.createdAt).toLocaleDateString()}
+                                    <strong>Registration Date:</strong> {new Date(receiptDetails.createdAt).toLocaleDateString()}
                                 </div>
                                 {/* Add any other details you need */}
                             </>

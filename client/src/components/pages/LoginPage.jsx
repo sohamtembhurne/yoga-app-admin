@@ -24,7 +24,7 @@ const LoginPage = () => {
         navigate(`/receipt`);
       } else {
         notifyHello();
-        navigate(`/payment`)
+        navigate(`/register`)
       }
     } catch (error) {
       console.error('Error checking payment:', error.message);

@@ -3,7 +3,7 @@ import axios from 'axios';
 import TextInput from '../common/TextInput';
 import { useNavigate } from 'react-router-dom';
 import { useMobile } from '../context/MobileContext';
-import { notifyEdit, notifyPaymentFail, notifyPaymentSuccess } from '../common/Toaster';
+import { notifyAge, notifyEdit, notifyRegistrationFail, notifyRegistrationSuccess } from '../common/Toaster';
 
 const RegisterPage = () => {
   const { mobile } = useMobile();
@@ -27,22 +27,21 @@ const RegisterPage = () => {
     e.preventDefault();
 
     if (formData.age < 18 || formData.age > 65) {
-      alert('Age must be between 18 and 65.');
+      // alert('Age must be between 18 and 65.');
+      notifyAge();
       return;
     }
-
-    const monthlyFee = 500;
 
     try {
       const response = await axios.post(`${url}/api/users`, formData);
       const responseData = response.data;
-      const paymentResponse = completePayment(responseData, monthlyFee);
+      const paymentResponse = completePayment(responseData);
 
       if (paymentResponse.success) {
-        notifyPaymentSuccess();
+        notifyRegistrationSuccess();
         navigate(`/receipt`);
       } else {
-        notifyPaymentFail();
+        notifyRegistrationFail();
       }
 
     } catch (error) {
@@ -50,20 +49,19 @@ const RegisterPage = () => {
     }
   };
 
-  const completePayment = (userData, monthlyFee) => {
-    const totalPayment = monthlyFee;
+  const completePayment = (userData) => {
     // Adding a function to test failure in payments as well
     const isSuccess = Math.random() < 0.99;
 
     if (isSuccess) {
       return {
         success: true,
-        message: `Payment successful! Total Amount: ${totalPayment} INR`
+        message: `Registration Successful`
       };
     } else {
       return {
         success: false,
-        message: "Payment failed. Please try again."
+        message: "Registration failed. Please try again."
       };
     }
   };

@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 
 const HomeDesktop = () => {
     return (
-        <div className='h-full border'>
-
+        <div className='h-full'>
             <div className='flex bg-white mx-auto'>
+            <div className='flex justify-end w-full'>
+            <Link to = '/admin'>
+                <button className='border border-[#66279a] hover:bg-[#66279a] hover:text-white transition-all duration-100 p-2 m-4 rounded-lg'>
+                    Admin Login
+                </button>
+            </Link>
+            </div>
                 <div className='space-y-4 absolute left-24 top-80 z-20'>
                     <div className=''>
                         <h1 className='text-4xl font-semibold'> Transformation to <br /> self and nature with Yoga </h1>
@@ -13,7 +19,7 @@ const HomeDesktop = () => {
                     <div className='w-96 text-sm my-4 text-[#585c61]'>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae labore ad porro voluptas impedit asperiores.</p>
                     </div>
-                    <Link to='/mobile'>
+                    <Link to='/login'>
                         <button
                             type="submit"
                             value="Enroll for classes"

@@ -15,7 +15,7 @@ const HomeMobile = () => {
                     <div className='w-full text-sm my-2 text-[#585c61]'>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae labore ad porro voluptas .</p>
                     </div>
-                    <Link to='/mobile'>
+                    <Link to='/login'>
                         <button
                             type="submit"
                             value="Enroll for classes"
