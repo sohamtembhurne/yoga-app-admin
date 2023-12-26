@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import DataTable from "./DataTable";
-import Pagination from "./Pagination";
-import SearchBar from "./SearchBar";
-import DeleteButton from "./DeleteButton";
+import DataTable from "../common/DataTable";
+import Pagination from "../common/Pagination";
+import SearchBar from "../common/SearchBar";
+import DeleteButton from "../common/DeleteButton";
 import axios from "axios";
-import Toaster, { notifyDeleteMultiple } from "./common/Toaster";
+import { notifyDeleteMultiple } from "../common/Toaster";
 
 const DataGrid = () => {
   const [data, setData] = useState([]);
@@ -23,7 +23,6 @@ const DataGrid = () => {
   const fetchApiData = async () => {
     try {
       const jsonData = await axios.get(`${process.env.REACT_APP_API_URL}/api/users`);
-      console.log(jsonData)
       setData(jsonData.data);
       setFilteredData(jsonData.data);
     } catch (err) {
@@ -39,10 +38,8 @@ const DataGrid = () => {
   // useEffect(() => {
   //   const filtered = data.filter(
   //     (item) =>
-  //       item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
   //       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //       item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //       item.role.toLowerCase().includes(searchTerm.toLowerCase())
+  //       item.email.toLowerCase().includes(searchTerm.toLowerCase()) 
   //   );
   //   setFilteredData(filtered);
   // }, [searchTerm, data]);
@@ -55,10 +52,8 @@ const DataGrid = () => {
   const handleSearch = () => {
     const filtered = data.filter(
       (item) =>
-        item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.shift.toLowerCase().includes(searchTerm.toLowerCase())
+        item.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredData(filtered);
   };
@@ -73,7 +68,7 @@ const DataGrid = () => {
   //function to handle edit mode for certain row
   const handleEdit = (id) => {
     const updatedData = data.map((item) =>
-      item.id === id
+      item._id === id
         ? { ...item, editing: true, originalData: { ...item } }
         : item
     );
@@ -103,20 +98,38 @@ const DataGrid = () => {
     setFilteredData(updatedData);
   };
 
-  //function to handle deletion of a certain row
-  const handleDelete = (id) => {
-    const updatedData = data.filter((item) => item._id !== id);
-    setData(updatedData);
-    setFilteredData(updatedData);
+  //function to delete users on mongoDB
+  const handleDelete = async (id) => {
+    try {
+      const idsToDelete = Array.isArray(id) ? id : [id];
+      console.log('Deleting users with IDs:', idsToDelete);
+
+      const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/users`, { data: { ids: idsToDelete } });
+      console.log('Server response:', response);
+
+      const updatedData = data.filter((item) => !idsToDelete.includes(item._id));
+      setData(updatedData);
+      setFilteredData(updatedData);
+    } catch (error) {
+      console.error('Error deleting user(s):', error.message);
+    }
   };
 
   //function to handle saves for editable row
-  const handleSave = (id) => {
-    const updatedData = data.map((item) =>
-      item._id === id ? { ...item, editing: false } : item
-    );
-    setData(updatedData);
-    setFilteredData(updatedData);
+  const handleSave = async (id) => {
+    try {
+      const editedItem = data.find(item => item._id === id);
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/users`, editedItem);
+      console.log('Server response:', response);
+
+      const updatedData = data.map((item) =>
+        item._id === id ? { ...item, editing: false } : item
+      );
+      setData(updatedData);
+      setFilteredData(updatedData);
+    } catch (error) {
+      console.error('Error saving user changes:', error.message);
+    }
   };
 
   //function to select all rows on current page
@@ -138,17 +151,16 @@ const DataGrid = () => {
     setSelectedRows(updatedSelectedRows);
   };
 
-  //function to delete selected row(s) on page
+  //function to delete selected row(s)
   const handleDeleteSelected = () => {
-    const updatedData = data.filter((item) => !selectedRows.includes(item._id));
-    setData(updatedData);
-    setFilteredData(updatedData);
+    const idsToDelete = selectedRows;
+
+    handleDelete(idsToDelete);
     setSelectedRows([]);
   };
 
   return (
     <div className="py-4">
-      <Toaster />
       <div className="flex justify-between items-center my-4 w-11/12 mx-auto">
         <SearchBar
           searchTerm={searchTerm}
@@ -175,15 +187,16 @@ const DataGrid = () => {
           handleCancel={handleCancel}
           handleDelete={handleDelete}
         />
-
-        <Pagination
-          selectedRows={selectedRows}
-          filteredData={filteredData}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          indexOfLastItem={indexOfLastItem}
-          totalPages={totalPages}
-        />
+        {data.length > 0 ?
+          <Pagination
+            selectedRows={selectedRows}
+            filteredData={filteredData}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            indexOfLastItem={indexOfLastItem}
+            totalPages={totalPages}
+          />
+          : <div className="mx-auto mt-4 text-gray-600"> No Data Exists </div>}
       </div>
     </div>
   );

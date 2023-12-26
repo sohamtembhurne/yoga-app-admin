@@ -6,7 +6,7 @@ import Home from './components/pages/Home';
 import Receipt from './components/pages/Receipt';
 import { MobileProvider } from './components/context/MobileContext';
 import Toaster from './components/common/Toaster';
-import DataGrid from './components/DataGrid';
+import DataGrid from './components/pages/DataGrid';
 
 const App = () => {
   return (

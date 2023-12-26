@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { CancelIcon, DeleteIcon, EditIcon, SaveIcon } from "./Icons";
-import { notifyDelete, notifyRowEdit } from "./common/Toaster";
+import { notifyDelete, notifyRowEdit } from "./Toaster";
 
 //Input component
 const InputField = ({ value, onChange, className }) => (
@@ -33,7 +33,7 @@ const DataTableheader = ({ selectedRows, currentItems, handleSelectAll }) => (
     </th>
     <th className="py-4 px-4 border-r-2 w-48">Name</th>
     <th className="py-4 px-4 border-r-2 w-64">Email</th>
-    <th className="py-4 px-4 border-r-2 w-32">Role</th>
+    <th className="py-4 px-4 border-r-2 w-32">Shift</th>
     <th className="py-4 px-4 border-r-2 w-48">Actions</th>
   </tr>
 );
