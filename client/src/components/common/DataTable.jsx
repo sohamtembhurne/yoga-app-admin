@@ -129,7 +129,7 @@ const DataTableRow = ({
         <>
           <ActionButton
             onClick={() => handleEdit(item._id)}
-            className="editButton text-blue-500 p-2 rounded-md mr-2 hover:bg-blue-600 hover:text-white"
+            className="editButton text-purple-600 p-2 rounded-md mr-2 hover:bg-[#66279a] hover:text-white transition-all duration-100"
           >
             <EditIcon />
           </ActionButton>
