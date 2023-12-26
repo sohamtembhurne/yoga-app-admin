@@ -50,57 +50,57 @@ const DataTableRow = ({
   handleDelete,
 }) => (
   <motion.tr
-    key={item.id}
+    key={item._id}
     initial={{ opacity: 0, y: -10, scaleY: 0.8 }}
     animate={{ opacity: 1, y: 0, scaleY: 1 }}
     exit={{ opacity: 0, y: 10, scaleY: 0.8 }}
     transition={{ duration: 0.5 }}
     className={`border-b cursor-pointer hover:bg-purple-100 ${
-      selectedRows.includes(item.id) ? "bg-gray-100 hover:bg-gray-100" : ""
+      selectedRows.includes(item._id) ? "bg-gray-100 hover:bg-gray-100" : ""
     } ${item.editing ? "bg-sky-50" : ""}`}
   >
     <td className="text-center">
       <input
         className="h-5 w-5 accent-purple-500"
         type="checkbox"
-        checked={selectedRows.includes(item.id)}
-        onChange={() => handleRowSelect(item.id)}
+        checked={selectedRows.includes(item._id)}
+        onChange={() => handleRowSelect(item._id)}
       />
     </td>
     <td
-      onClick={() => !item.editing && handleRowSelect(item.id)}
+      onClick={() => !item.editing && handleRowSelect(item._id)}
       className="py-3 px-4"
     >
       {item.editing ? (
         <InputField
           value={item.name}
-          onChange={(e) => handleInputChange(item.id, "name", e.target.value)}
+          onChange={(e) => handleInputChange(item._id, "name", e.target.value)}
         />
       ) : (
         item.name
       )}
     </td>
     <td
-      onClick={() => !item.editing && handleRowSelect(item.id)}
+      onClick={() => !item.editing && handleRowSelect(item._id)}
       className="py-3 px-4 h-12"
     >
       {item.editing ? (
         <InputField
           value={item.email}
-          onChange={(e) => handleInputChange(item.id, "email", e.target.value)}
+          onChange={(e) => handleInputChange(item._id, "email", e.target.value)}
         />
       ) : (
         item.email
       )}
     </td>
     <td
-      onClick={() => !item.editing && handleRowSelect(item.id)}
+      onClick={() => !item.editing && handleRowSelect(item._id)}
       className="py-3 px-4 h-12"
     >
       {item.editing ? (
         <InputField
           value={item.shift}
-          onChange={(e) => handleInputChange(item.id, "shift", e.target.value)}
+          onChange={(e) => handleInputChange(item._id, "shift", e.target.value)}
         />
       ) : (
         item.shift
@@ -111,7 +111,7 @@ const DataTableRow = ({
         <>
           <ActionButton
             onClick={() => {
-              handleSave(item.id);
+              handleSave(item._id);
               notifyRowEdit();
             }}
             className="saveButton text-green-500 p-2 rounded-md mr-2 hover:bg-green-600 hover:text-white"
@@ -119,7 +119,7 @@ const DataTableRow = ({
             <SaveIcon />
           </ActionButton>
           <ActionButton
-            onClick={() => handleCancel(item.id)}
+            onClick={() => handleCancel(item._id)}
             className="cancelButton p-2 rounded-md mr-2 hover:bg-red-500 hover:text-white"
           >
             <CancelIcon />
@@ -128,14 +128,14 @@ const DataTableRow = ({
       ) : (
         <>
           <ActionButton
-            onClick={() => handleEdit(item.id)}
+            onClick={() => handleEdit(item._id)}
             className="editButton text-blue-500 p-2 rounded-md mr-2 hover:bg-blue-600 hover:text-white"
           >
             <EditIcon />
           </ActionButton>
           <ActionButton
             onClick={() => {
-              handleDelete(item.id);
+              handleDelete(item._id);
               notifyDelete();
             }}
             className="deleteButton text-red-500 p-2 rounded-md hover:bg-red-600 hover:text-white"
@@ -172,7 +172,7 @@ const DataTable = ({
         <tbody>
           {currentItems.map((item) => (
             <DataTableRow
-              key={item.id}
+              key={item._id}
               item={item}
               selectedRows={selectedRows}
               handleRowSelect={handleRowSelect}

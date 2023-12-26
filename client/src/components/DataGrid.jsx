@@ -85,7 +85,7 @@ const DataGrid = () => {
   //function to cancel edit mode for certain row
   const handleCancel = (id) => {
     const updatedData = data.map((item) =>
-      item.id === id && item.editing
+      item._id === id && item.editing
         ? { ...item.originalData, editing: false }
         : item
     );
@@ -97,7 +97,7 @@ const DataGrid = () => {
   //function to handle input change in editable row
   const handleInputChange = (id, field, value) => {
     const updatedData = data.map((item) =>
-      item.id === id ? { ...item, [field]: value } : item
+      item._id === id ? { ...item, [field]: value } : item
     );
     setData(updatedData);
     setFilteredData(updatedData);
@@ -105,7 +105,7 @@ const DataGrid = () => {
 
   //function to handle deletion of a certain row
   const handleDelete = (id) => {
-    const updatedData = data.filter((item) => item.id !== id);
+    const updatedData = data.filter((item) => item._id !== id);
     setData(updatedData);
     setFilteredData(updatedData);
   };
@@ -113,7 +113,7 @@ const DataGrid = () => {
   //function to handle saves for editable row
   const handleSave = (id) => {
     const updatedData = data.map((item) =>
-      item.id === id ? { ...item, editing: false } : item
+      item._id === id ? { ...item, editing: false } : item
     );
     setData(updatedData);
     setFilteredData(updatedData);
@@ -121,7 +121,7 @@ const DataGrid = () => {
 
   //function to select all rows on current page
   const handleSelectAll = () => {
-    const allIdsOnCurrentPage = currentItems.map((item) => item.id);
+    const allIdsOnCurrentPage = currentItems.map((item) => item._id);
     const updatedSelectedRows =
       selectedRows.length === allIdsOnCurrentPage.length
         ? []
@@ -140,7 +140,7 @@ const DataGrid = () => {
 
   //function to delete selected row(s) on page
   const handleDeleteSelected = () => {
-    const updatedData = data.filter((item) => !selectedRows.includes(item.id));
+    const updatedData = data.filter((item) => !selectedRows.includes(item._id));
     setData(updatedData);
     setFilteredData(updatedData);
     setSelectedRows([]);
